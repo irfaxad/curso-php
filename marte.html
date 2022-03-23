@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu peso en otro planeta</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+        }
+
+        span {
+            text-transform: capitalize;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tu peso en otro planeta</h1>
+    <p>En la Tierra pesas distinto que en Marte o Júpiter.</p>
+    <p>Elige de qué planeta quieres saber tu peso.</p>
+    <select name="selectPlaneta" id="selectPlaneta">
+        <option value="" selected disabled>La Tierra</option>
+        <option value="mercurio">Mercurio</option>
+        <option value="venus">Venus</option>
+        <option value="marte">Marte</option>
+        <option value="jupiter">Júpiter</option>
+        <option value="saturno">Saturno</option>
+        <option value="urano">Urano</option>
+        <option value="neptuno">Neptuno</option>
+    </select>
+    <p id="pesoTierra">...</p>
+    <p id="pesoCalc">...</p>
+    <script>
+        function roundToTwo(num) {
+            return +(Math.round(num + "e+2") + "e-2");
+        }
+
+        function calculaPeso(peso, planeta) {
+            var peso_final;
+            var g_mercurio = 3.7;
+            var g_venus = 8.87;
+            var g_tierra = 9.8;
+            var g_marte = 3.7;
+            var g_jupiter = 24.8;
+            var g_saturno = 10.44;
+            var g_urano = 8.87;
+            var g_neptuno = 11.15;
+            switch (planeta) {
+                case "mercurio":
+                    peso_final = roundToTwo((peso * g_mercurio) / g_tierra);
+                    break;
+                case "venus":
+                    peso_final = roundToTwo((peso * g_venus) / g_tierra);
+                    break;
+                case "marte":
+                    peso_final = roundToTwo((peso * g_marte) / g_tierra);
+                    break;
+                case "jupiter":
+                    peso_final = roundToTwo((peso * g_jupiter) / g_tierra);
+                    break;
+                case "saturno":
+                    peso_final = roundToTwo((peso * g_saturno) / g_tierra);
+                    break;
+                case "urano":
+                    peso_final = roundToTwo((peso * g_urano) / g_tierra);
+                    break;
+                case "neptuno":
+                    peso_final = roundToTwo((peso * g_neptuno) / g_tierra);
+                    break;
+                default:
+                    peso_final = peso;
+            }
+            return peso_final;
+        }
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            var peso = prompt("¿Cuál es tu peso?");
+            var selectPlaneta = document.getElementById("selectPlaneta");
+            var pesoCalc = document.getElementById("pesoCalc");
+            var pesoTierra = document.getElementById("pesoTierra");
+
+            peso = parseFloat(peso).toFixed(2);
+            pesoTierra.innerHTML = "Tu peso en La Tierra es: <strong>" + peso + " kg.</strong></br>";
+
+            selectPlaneta.onchange = (event) => {
+                var planetaSelect = event.target.value;
+                var pesoFinal = calculaPeso(peso, planetaSelect);
+                pesoCalc.innerHTML = "Tu peso en <span>" + planetaSelect + "</span> es: <strong>" + pesoFinal + " kg.</strong></br>";
+            }
+        });
+    </script>
+</body>
+
+</html>
